@@ -7,7 +7,7 @@ public class SpawnCharacter : MonoBehaviour
 
     public void CenouraSkills(Animator Character, GameObject PlatformObj)
     {
-        Character.SetTrigger("SwitchCenoura");   
+      //  Character.SetTrigger("SwitchCenoura");   
         PlatformObj.gameObject.SetActive(true);
         
     }
@@ -20,7 +20,7 @@ public class SpawnCharacter : MonoBehaviour
 
     public void NaboSkills(Animator Character, GameObject PlatformObj)
     {
-        Character.SetTrigger("SwitchNabo");
+      //  Character.SetTrigger("SwitchNabo");
         PlatformObj.gameObject.SetActive(false);
     }
 

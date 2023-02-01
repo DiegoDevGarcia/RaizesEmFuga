@@ -20,6 +20,7 @@ public class Jogador : SpawnCharacter
     //characters
     public GameObject PlatformObj;
     private Animator anim;
+    [HideInInspector] public bool controlarPlayer = true;
 
 
     private void Awake()
@@ -34,6 +35,11 @@ public class Jogador : SpawnCharacter
     
     void Update()
     {
+        if (!controlarPlayer)
+        {
+            return;
+        }
+
         if (isGrounded)
         {
 
@@ -64,6 +70,11 @@ public class Jogador : SpawnCharacter
 
     private void FixedUpdate()
     {
+        if (!controlarPlayer)
+        {
+            return;
+        }
+
         Move();
     }
 

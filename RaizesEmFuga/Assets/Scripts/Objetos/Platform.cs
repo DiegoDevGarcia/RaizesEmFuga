@@ -42,6 +42,7 @@ public class Platform : MonoBehaviour
     {
         tj.enabled = false;
         bx.isTrigger = true;
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
