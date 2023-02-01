@@ -7,6 +7,11 @@ TagManager:
   - Platform
   - killZone
   - Ground
+  - Cenoura
+  - Batata
+  - Alho
+  - Rabanete
+  - isInvisible
   layers:
   - Default
   - TransparentFX

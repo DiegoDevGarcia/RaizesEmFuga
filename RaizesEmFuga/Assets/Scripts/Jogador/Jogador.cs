@@ -15,19 +15,22 @@ public class Jogador : MonoBehaviour
     //jump
     private int nJump;
     public float jumpSpeed;
-
     public bool isGrounded;
+
+    //characters
+    public GameObject PlatformObj;
 
 
     private void Awake()
     {
-        rig = GetComponent<Rigidbody2D>();
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
     void Start()
     {
-       
+        rig = GetComponent<Rigidbody2D>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     
@@ -54,6 +57,13 @@ public class Jogador : MonoBehaviour
 
         }
     }
+
+    void Jump()
+    {
+        rig.velocity = Vector2.up * jumpSpeed;
+
+    }
+
     private void FixedUpdate()
     {
         Move();
@@ -82,12 +92,6 @@ public class Jogador : MonoBehaviour
         }
     }
 
-    void Jump()
-    {
-        rig.velocity = Vector2.up * jumpSpeed;
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -114,15 +118,49 @@ public class Jogador : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.layer == 8)
         {
             isGrounded= true;
         }
+
+        if(collision.gameObject.tag == "Cenoura")
+        {
+            spriteRenderer.color = Color.blue;
+            if(PlatformObj.tag == "isInvisible")
+            {
+                PlatformObj.gameObject.SetActive(true);
+            }
+        }
+        else if (collision.gameObject.tag == "Batata")
+        {
+            spriteRenderer.color = Color.yellow;
+            if (PlatformObj.tag == "isInvisible")
+            {
+                PlatformObj.gameObject.SetActive(false);
+            }
+        }
+        else if (collision.gameObject.tag == "Rabanete")
+        {
+            spriteRenderer.color = Color.cyan;
+            if (PlatformObj.tag == "isInvisible")
+            {
+                PlatformObj.gameObject.SetActive(false);
+            }
+        }
+        else if (collision.gameObject.tag == "Alho")
+        {
+            spriteRenderer.color = Color.white;
+            if (PlatformObj.tag == "isInvisible")
+            {
+                PlatformObj.gameObject.SetActive(false);
+            }
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.layer == 8)
         {
             isGrounded= false;
         }
