@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jogador : MonoBehaviour
+public class Jogador : SpawnCharacter
 {
 
     private Rigidbody2D rig;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer Character;
 
     //move
     private float movement;
@@ -19,18 +19,16 @@ public class Jogador : MonoBehaviour
 
     //characters
     public GameObject PlatformObj;
+    private Animator anim;
 
 
     private void Awake()
     {
-        
-    }
-    void Start()
-    {
         rig = GetComponent<Rigidbody2D>();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        Character = GetComponent<SpriteRenderer>();
 
+        anim = GetComponent<Animator>();
     }
 
     
@@ -76,19 +74,19 @@ public class Jogador : MonoBehaviour
 
         if (movement > 0f)
         {
-            // anim.SetBool("walk", true); inicia a animação walk
-            spriteRenderer.flipX = false; // manter o player na rotação 0 quando andando para direita
+            anim.SetBool("walk", true); // inicia a animação walk
+            Character.flipX = false; // manter o player na rotação 0 quando andando para direita
         }
 
         if (movement < 0f)
         {
-            // anim.SetBool("walk", true); inicia a animação walk
-            spriteRenderer.flipX = true; // flipa o player em 180º quando andando para esquerda
+            anim.SetBool("walk", true); // inicia a animação walk
+            Character.flipX = true; // flipa o player em 180º quando andando para esquerda
         }
 
         if (movement == 0f)
         {
-            // anim.SetBool("walk", false); desliga a animação walk
+            anim.SetBool("walk", false); // desliga a animação walk
         }
     }
 
@@ -125,35 +123,22 @@ public class Jogador : MonoBehaviour
 
         if(collision.gameObject.tag == "Cenoura")
         {
-            spriteRenderer.color = Color.blue;
-            if(PlatformObj.tag == "isInvisible")
-            {
-                PlatformObj.gameObject.SetActive(true);
-            }
+            CenouraSkills(anim, PlatformObj);
         }
-        else if (collision.gameObject.tag == "Batata")
+       
+        if (collision.gameObject.tag == "Batata")
         {
-            spriteRenderer.color = Color.yellow;
-            if (PlatformObj.tag == "isInvisible")
-            {
-                PlatformObj.gameObject.SetActive(false);
-            }
+            BatataSkills(anim, PlatformObj);
         }
-        else if (collision.gameObject.tag == "Rabanete")
+
+        if (collision.gameObject.tag == "Rabanete")
         {
-            spriteRenderer.color = Color.cyan;
-            if (PlatformObj.tag == "isInvisible")
-            {
-                PlatformObj.gameObject.SetActive(false);
-            }
+            NaboSkills(anim, PlatformObj);
         }
-        else if (collision.gameObject.tag == "Alho")
+       
+        if (collision.gameObject.tag == "Alho")
         {
-            spriteRenderer.color = Color.white;
-            if (PlatformObj.tag == "isInvisible")
-            {
-                PlatformObj.gameObject.SetActive(false);
-            }
+            AlhoSkills(anim, PlatformObj);
         }
 
     }
