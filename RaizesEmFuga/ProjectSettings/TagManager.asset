@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - killZone
+  - Ground
   layers:
   - Default
   - TransparentFX

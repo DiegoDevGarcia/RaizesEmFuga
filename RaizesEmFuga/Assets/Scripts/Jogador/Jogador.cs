@@ -13,10 +13,10 @@ public class Jogador : MonoBehaviour
     public float speed = 5f;
 
     //jump
-    public float jumpForce;
-    private bool isJumping;
-    private bool doubleJumping;
-    private bool isBlowing = false;
+    private int nJump;
+    public float jumpSpeed;
+
+    public bool isGrounded;
 
 
     private void Awake()
@@ -33,12 +33,30 @@ public class Jogador : MonoBehaviour
     
     void Update()
     {
-        
+        if (isGrounded)
+        {
+
+            nJump = 1;
+
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                Jump();
+
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Jump") && nJump > 0)
+            {
+                nJump--;
+                Jump();
+            }
+
+        }
     }
     private void FixedUpdate()
     {
         Move();
-        Jump();
     }
 
     void Move()
@@ -64,36 +82,14 @@ public class Jogador : MonoBehaviour
         }
     }
 
-        void Jump()
-        { 
-    
-            if (Input.GetButtonDown("Jump") && !isBlowing)
-            {
-                if (!isJumping)
-                {
-                    rig.AddForce(new Vector2(0f, jumpForce * 2), ForceMode2D.Impulse);
-                    doubleJumping = true;
-                }
-                else
-                {
-                    if (doubleJumping)
-                    {
-                        rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                        doubleJumping = false;
-                        //anim.SetTrigger("doubleJump"); inicia Animação doubleJump
-                    }
-                }
+    void Jump()
+    {
+        rig.velocity = Vector2.up * jumpSpeed;
 
-            }
-        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            isJumping = false; // jogador não está pulando
-            // anim.SetBool("jump", false); desliga a animação de jump
-        }
 
         if (collision.gameObject.tag == "Platform")
         {
@@ -109,15 +105,26 @@ public class Jogador : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            isJumping = true; // jogador está pulando
-           // anim.SetBool("jump", true); inicia a animação jump
-        }
 
         if (collision.gameObject.tag == "Platform")
         {
             this.transform.parent = null; // player saiu da plataforma
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded= true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            isGrounded= false;
         }
     }
 }
