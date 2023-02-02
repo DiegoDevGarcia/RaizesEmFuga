@@ -29,7 +29,7 @@ public class PlayerManagerController : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.I)) 
+        if(Input.GetKeyDown(KeyCode.C)) 
         {
             TrocarPersonagem();
             
@@ -39,9 +39,15 @@ public class PlayerManagerController : MonoBehaviour
     private void TrocarPersonagem()
     {
         int currentPlayer = (startPlayer - 1);
-        Debug.Log("antes da logica " + currentPlayer);
-        currentPlayer = currentPlayer == 0 ? 1 : 0;
-        Debug.Log("Antes da troca " + currentPlayer);
+        if(currentPlayer == 0)
+        {
+            currentPlayer = 1;
+            startPlayer = 2;
+        } else
+        {
+            currentPlayer = 0;
+            startPlayer = 1;
+        }
         AlteraPersonagemStatus(currentPlayer);
     }
 
@@ -54,12 +60,12 @@ public class PlayerManagerController : MonoBehaviour
             if (i == currentPlayer)
             {
                 Players[i].GetComponent<Jogador>().controlarPlayer = true;
+                
             }
             else
             {
                 Players[i].GetComponent<Jogador>().controlarPlayer = false;
             }
         }
-        Debug.Log("Depois da troca " + currentPlayer);
     }
 }

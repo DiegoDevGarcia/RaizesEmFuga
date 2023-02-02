@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jogador : SpawnCharacter
+public class Jogador : MonoBehaviour
 {
 
     private Rigidbody2D rig;
@@ -18,7 +18,6 @@ public class Jogador : SpawnCharacter
     public bool isGrounded;
 
     //characters
-    public GameObject PlatformObj;
     private Animator anim;
     [HideInInspector] public bool controlarPlayer = true;
 
@@ -130,26 +129,6 @@ public class Jogador : SpawnCharacter
         if(collision.gameObject.layer == 8)
         {
             isGrounded= true;
-        }
-
-        if(collision.gameObject.tag == "Cenoura")
-        {
-            CenouraSkills(anim, PlatformObj);
-        }
-       
-        if (collision.gameObject.tag == "Batata")
-        {
-            BatataSkills(anim, PlatformObj);
-        }
-
-        if (collision.gameObject.tag == "Rabanete")
-        {
-            NaboSkills(anim, PlatformObj);
-        }
-       
-        if (collision.gameObject.tag == "Alho")
-        {
-            AlhoSkills(anim, PlatformObj);
         }
 
     }
