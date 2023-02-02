@@ -2720,6 +2720,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InimigoRandon
       objectReference: {fileID: 0}
+    - target: {fileID: 4765394151653521273, guid: a5fbda7c275913d4d8f385481cd4d693, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4765394151653521275, guid: a5fbda7c275913d4d8f385481cd4d693, type: 3}
       propertyPath: velocidadeMovimento
       value: 3
