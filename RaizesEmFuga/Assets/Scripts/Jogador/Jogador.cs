@@ -12,6 +12,7 @@ public class Jogador : MonoBehaviour
     //move
     private float movement;
     public float speed = 5f;
+    private bool FlipX;
 
     //jump
     private int nJump;
@@ -22,9 +23,14 @@ public class Jogador : MonoBehaviour
     [HideInInspector] public bool controlarPlayer = true;
     [HideInInspector] public Animator anim;
 
-    //Batata
-    private float DashForce = 20;
-    private bool onDash; 
+    //Batata Dash
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 200f;
+    private float dashingTime = 0.2f;
+    private float dashingCoolDown = 0.5f;
+    [SerializeField] TrailRenderer tr;
+
 
 
     private void Awake()
@@ -36,10 +42,23 @@ public class Jogador : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    
+    private void Start()
+    {
+        if (isDashing)
+        {
+            return;
+        }
+    }
+
+
     void Update()
     {
         if (!controlarPlayer)
+        {
+            return;
+        }
+
+        if(isDashing)
         {
             return;
         }
@@ -76,12 +95,11 @@ public class Jogador : MonoBehaviour
 
         if(gameObject.tag == "Batata")
         {
-            PlatformObj.gameObject.SetActive(false);
-            if(Input.GetKeyDown(KeyCode.E))
+            PlatformObj.gameObject.SetActive(false); 
+            if(Input.GetKeyDown(KeyCode.E) && canDash)
             {
-                onDash = true;
-                Dash();
-            }   
+                StartCoroutine(Dash());
+            }
             
         }
     }
@@ -90,6 +108,22 @@ public class Jogador : MonoBehaviour
     {
         rig.velocity = Vector2.up * jumpSpeed;
 
+    }
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rig.gravityScale;
+        rig.gravityScale = 0f;
+        rig.velocity = new Vector2(transform.localScale.x * dashingPower, transform.localScale.y * dashingPower);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        rig.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCoolDown);
+        canDash = true;
     }
 
     private void FixedUpdate()
@@ -110,19 +144,35 @@ public class Jogador : MonoBehaviour
         if (movement > 0f)
         {
             anim.SetBool("walk", true); // inicia a animação walk
-            Character.flipX = false; // manter o player na rotação 0 quando andando para direita
+            if(FlipX)
+            {
+                Flip(); // manter o player na rotação 0 quando andando para direita
+            }
+             
         }
 
-        if (movement < 0f)
+        else if (movement < 0f)
         {
             anim.SetBool("walk", true); // inicia a animação walk
-            Character.flipX = true; // flipa o player em 180º quando andando para esquerda
+            if(!FlipX)
+            {
+                Flip(); // flipa o player em 180º quando andando para esquerda
+            }
+            
         }
 
-        if (movement == 0f)
+        else if (movement == 0f)
         {
             anim.SetBool("walk", false); // desliga a animação walk
         }
+    }
+
+    private void Flip()
+    {
+        FlipX = !FlipX;
+        float x = transform.localScale.x;
+        x *= -1;
+        transform.localScale = new Vector3(x,transform.localScale.y, transform.localScale.z);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -141,21 +191,13 @@ public class Jogador : MonoBehaviour
 
         if(gameObject.tag == "Batata")
         {
-            if(onDash)
-            {
+            
                 if (collision.gameObject.tag == "hardWall")
                 {
                     Destroy(collision.gameObject);
                 }
-            }
+            
         }
-    }
-
-    private void Dash()
-    {
-        
-        rig.velocity = Vector2.right * 2 * DashForce;
-        
     }
 
     private void OnCollisionExit2D(Collision2D collision)
