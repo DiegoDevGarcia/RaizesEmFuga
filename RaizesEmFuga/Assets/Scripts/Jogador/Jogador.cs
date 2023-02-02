@@ -26,7 +26,7 @@ public class Jogador : MonoBehaviour
     //Batata Dash
     private bool canDash = true;
     private bool isDashing;
-    private float dashingPower = 200f;
+    private float dashingPower = 2000f;
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.5f;
     [SerializeField] TrailRenderer tr;
@@ -40,14 +40,6 @@ public class Jogador : MonoBehaviour
         Character = GetComponent<SpriteRenderer>();
 
         anim = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        if (isDashing)
-        {
-            return;
-        }
     }
 
 
@@ -116,7 +108,7 @@ public class Jogador : MonoBehaviour
         isDashing = true;
         float originalGravity = rig.gravityScale;
         rig.gravityScale = 0f;
-        rig.velocity = new Vector2(transform.localScale.x * dashingPower, transform.localScale.y * dashingPower);
+        rig.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
@@ -129,6 +121,10 @@ public class Jogador : MonoBehaviour
     private void FixedUpdate()
     {
         if (!controlarPlayer)
+        {
+            return;
+        }
+        if (isDashing)
         {
             return;
         }
