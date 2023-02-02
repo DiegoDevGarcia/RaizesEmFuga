@@ -6,7 +6,8 @@ public class Jogador : MonoBehaviour
 {
 
     private Rigidbody2D rig;
-    public SpriteRenderer Character;
+    private SpriteRenderer Character;
+    public GameObject PlatformObj;
 
     //move
     private float movement;
@@ -58,6 +59,16 @@ public class Jogador : MonoBehaviour
                 Jump();
             }
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && gameObject.tag == "Cenoura")
+        {
+            PlatformObj.gameObject.SetActive(true);
+        }
+
+        if(gameObject.tag == "Batata")
+        {
+            PlatformObj.gameObject.SetActive(false);
         }
     }
 

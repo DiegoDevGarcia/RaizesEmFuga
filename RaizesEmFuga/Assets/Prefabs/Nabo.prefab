@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 881803409}
   m_Layer: 0
   m_Name: Nabo
-  m_TagString: Player
+  m_TagString: Batata
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,11 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592def0f306afe84a8433d929839885a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
+  PlatformObj: {fileID: 0}
   speed: 5
   jumpSpeed: 5
   isGrounded: 0
-  PlatformObj: {fileID: 0}
+  controlarPlayer: 1
 --- !u!70 &1283183101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
