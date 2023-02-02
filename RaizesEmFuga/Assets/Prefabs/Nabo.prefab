@@ -153,6 +153,7 @@ MonoBehaviour:
   jumpSpeed: 5
   isGrounded: 0
   controlarPlayer: 1
+  anim: {fileID: 0}
 --- !u!70 &1283183101
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -179,7 +180,7 @@ Animator:
   m_GameObject: {fileID: 4394360795145083133}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9feaa36276777d24990fc643673190fc, type: 2}
+  m_Controller: {fileID: 9100000, guid: d5a1ba27589e8be4bb703d296396eb9e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -2007,10 +2007,6 @@ PrefabInstance:
       propertyPath: PlatformObj
       value: 
       objectReference: {fileID: 255727614}
-    - target: {fileID: 881803409, guid: 25020846dd56f6b479f0dff33713287a, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: d5a1ba27589e8be4bb703d296396eb9e, type: 2}
     - target: {fileID: 4394360795145083129, guid: 25020846dd56f6b479f0dff33713287a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2914,7 +2910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5124861043996758145, guid: 569ae91f7571a73409b16ee5abc72292, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.646
+      value: -0.791
       objectReference: {fileID: 0}
     - target: {fileID: 5124861043996758145, guid: 569ae91f7571a73409b16ee5abc72292, type: 3}
       propertyPath: m_LocalPosition.z

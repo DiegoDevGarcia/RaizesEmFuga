@@ -65,6 +65,7 @@ public class PlayerManagerController : MonoBehaviour
             else
             {
                 Players[i].GetComponent<Jogador>().controlarPlayer = false;
+                Players[i].GetComponent<Jogador>().anim.SetBool("walk", false);
             }
         }
     }

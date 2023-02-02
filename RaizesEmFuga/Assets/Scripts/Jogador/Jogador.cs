@@ -19,8 +19,8 @@ public class Jogador : MonoBehaviour
     public bool isGrounded;
 
     //characters
-    private Animator anim;
     [HideInInspector] public bool controlarPlayer = true;
+    [HideInInspector] public Animator anim;
 
     //Batata
     private float DashForce = 20;
