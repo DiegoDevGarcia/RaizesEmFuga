@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Cenoura
   - Batata
+  - hardWall
   layers:
   - Default
   - TransparentFX

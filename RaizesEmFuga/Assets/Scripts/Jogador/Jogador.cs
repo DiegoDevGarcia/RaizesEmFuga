@@ -22,6 +22,10 @@ public class Jogador : MonoBehaviour
     private Animator anim;
     [HideInInspector] public bool controlarPlayer = true;
 
+    //Batata
+    private float DashForce = 20;
+    private bool onDash; 
+
 
     private void Awake()
     {
@@ -61,14 +65,24 @@ public class Jogador : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && gameObject.tag == "Cenoura")
+        if (gameObject.tag == "Cenoura")
         {
-            PlatformObj.gameObject.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.X))
+            {
+                PlatformObj.gameObject.SetActive(true);
+            }
+            
         }
 
         if(gameObject.tag == "Batata")
         {
             PlatformObj.gameObject.SetActive(false);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                onDash = true;
+                Dash();
+            }   
+            
         }
     }
 
@@ -124,6 +138,24 @@ public class Jogador : MonoBehaviour
            // gameController.instance.showGameOver(); mostra tela de game over
             Destroy(gameObject);
         }
+
+        if(gameObject.tag == "Batata")
+        {
+            if(onDash)
+            {
+                if (collision.gameObject.tag == "hardWall")
+                {
+                    Destroy(collision.gameObject);
+                }
+            }
+        }
+    }
+
+    private void Dash()
+    {
+        
+        rig.velocity = Vector2.right * 2 * DashForce;
+        
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -140,6 +172,7 @@ public class Jogador : MonoBehaviour
         if(collision.gameObject.layer == 8)
         {
             isGrounded= true;
+            anim.SetBool("jump", false);
         }
 
     }
@@ -149,6 +182,7 @@ public class Jogador : MonoBehaviour
         if(collision.gameObject.layer == 8)
         {
             isGrounded= false;
+            anim.SetBool("jump", true);
         }
     }
 }
