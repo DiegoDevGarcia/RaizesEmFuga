@@ -179,7 +179,7 @@ public class Jogador : MonoBehaviour
             this.transform.parent = collision.transform; // faz o player andar junto com a plataforma
         }
 
-        if (collision.gameObject.tag == "agrotoxico")
+        if (collision.gameObject.layer == 9)
         {
            // gameController.instance.showGameOver(); mostra tela de game over
             Destroy(gameObject);
@@ -211,6 +211,11 @@ public class Jogador : MonoBehaviour
         {
             isGrounded= true;
             anim.SetBool("jump", false);
+        }
+
+        if (collision.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
         }
 
     }

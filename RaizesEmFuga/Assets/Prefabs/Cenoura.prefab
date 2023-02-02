@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8927487049577952180}
   - component: {fileID: 8927487048375818629}
   - component: {fileID: 8927487049051916521}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cenoura
   m_TagString: Cenoura
   m_Icon: {fileID: 0}
