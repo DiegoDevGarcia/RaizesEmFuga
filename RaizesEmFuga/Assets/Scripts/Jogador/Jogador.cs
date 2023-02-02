@@ -185,7 +185,7 @@ public class Jogador : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(gameObject.tag == "Batata")
+        if(gameObject.tag == "Batata" && isDashing)
         {
             
                 if (collision.gameObject.tag == "hardWall")
