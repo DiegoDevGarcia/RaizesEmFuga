@@ -106,6 +106,7 @@ public class Jogador : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        anim.SetBool("dash", true);
         float originalGravity = rig.gravityScale;
         rig.gravityScale = 0f;
         rig.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
@@ -115,6 +116,7 @@ public class Jogador : MonoBehaviour
         rig.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCoolDown);
+        anim.SetBool("dash", false);
         canDash = true;
     }
 
