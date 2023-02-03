@@ -183,8 +183,10 @@ public class Jogador : MonoBehaviour
 
         if (collision.gameObject.layer == 9)
         {
-           // gameController.instance.showGameOver(); mostra tela de game over
+            GameController.instance.showGameOver(); //mostra tela de game over
             Destroy(gameObject);
+            return;
+
         }
 
         if(gameObject.tag == "Batata" && isDashing)
@@ -217,7 +219,9 @@ public class Jogador : MonoBehaviour
 
         if (collision.gameObject.layer == 9)
         {
+            GameController.instance.showGameOver();
             Destroy(gameObject);
+            return;
         }
 
     }
