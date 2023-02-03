@@ -29,7 +29,7 @@ public class PlayerManagerController : MonoBehaviour
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.C)) 
+        if(Input.GetKeyDown(KeyCode.C) && Time.timeScale != 0) 
         {
             TrocarPersonagem();
             

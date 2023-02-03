@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class Jogador : MonoBehaviour
     //characters
     [HideInInspector] public bool controlarPlayer = true;
     [HideInInspector] public Animator anim;
+
+    // private  int CurrentHealth = 3; *Possivel sistema de vida
 
     //Cenoura Eye
     private bool isVisible = true;
@@ -63,12 +66,9 @@ public class Jogador : MonoBehaviour
         if (isGrounded)
         {
 
-            nJump = 1;
-
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 Jump();
-
             }
         }
         else
@@ -78,20 +78,23 @@ public class Jogador : MonoBehaviour
                 nJump--;
                 Jump();
             }
-
         }
 
+        //Cenoura Skill
         if (gameObject.tag == "Cenoura")
         {
-            if(Input.GetKeyDown(KeyCode.X))
+            nJump = 1;
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 seePlatform();
             }
             
         }
 
+        //Batata Skill
         if(gameObject.tag == "Batata")
         {
+            nJump = 0;
             PlatformObj.gameObject.SetActive(false); 
             if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
@@ -101,18 +104,137 @@ public class Jogador : MonoBehaviour
         }
     }
 
-    void Jump()
+    private void FixedUpdate()
     {
-        rig.velocity = Vector2.up * jumpSpeed;
+        if (!controlarPlayer)
+        {
+            return;
+        }
+        if (isDashing)
+        {
+            return;
+        }
+
+        Move();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.tag == "Platform")
+        {
+            this.transform.parent = collision.transform; // faz o player andar junto com a plataforma
+        }
+
+        if (collision.gameObject.layer == 9) // layer 9 = killZone
+        {
+            GameController.instance.showGameOver(); //mostra tela de game over
+            Destroy(gameObject);
+            return;
+
+        }
+
+        if(gameObject.tag == "Batata" && isDashing)
+        {
+            
+                if (collision.gameObject.tag == "hardWall")
+                {
+                    Destroy(collision.gameObject);
+                }
+            
+        }
+
+    } 
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.tag == "Platform")
+        {
+            this.transform.parent = null; // player saiu da plataforma
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 8) // layer 8 = Ground
+        {
+            isGrounded= true;
+            anim.SetBool("jump", false);
+        }
+
+        if (collision.gameObject.layer == 9) // layer 9 = killZone
+        {
+            GameController.instance.showGameOver();
+            Destroy(gameObject);
+            return;
+        }
 
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 8) // layer 8 = ground
+        {
+            isGrounded= false;
+            anim.SetBool("jump", true);
+        }
+    }
+
+
+    void Move()
+    {
+        float movement = Input.GetAxis("Horizontal");
+        rig.velocity = new Vector2(movement * speed, rig.velocity.y);
+
+        if (movement > 0f)
+        {
+            anim.SetBool("walk", true); // inicia a animação walk
+            if (FlipX)
+            {
+                Flip(); // manter o player na rotação 0 quando andando para direita
+            }
+
+        }
+
+        else if (movement < 0f)
+        {
+            anim.SetBool("walk", true); // inicia a animação walk
+            if (!FlipX)
+            {
+                Flip(); // flipa o player em 180º quando andando para esquerda
+            }
+
+        }
+
+        else if (movement == 0f)
+        {
+            anim.SetBool("walk", false); // desliga a animação walk
+        }
+    }
+
+    private void Flip()
+    {
+        FlipX = !FlipX;
+        float x = transform.localScale.x;
+        x *= -1;
+        transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+    }
+
+
+    void Jump()
+    {
+        rig.velocity = Vector2.up * jumpSpeed;
+    }
+
+    //Cenoura Skill
     private void seePlatform()
     {
         PlatformObj.gameObject.SetActive(isVisible);
         isVisible = !isVisible;
     }
 
+    //Batata Skill
     IEnumerator Dash()
     {
         canDash = false;
@@ -131,118 +253,16 @@ public class Jogador : MonoBehaviour
         canDash = true;
     }
 
-    private void FixedUpdate()
+    // Mata o player;
+    public void hitted()
     {
-        if (!controlarPlayer)
-        {
-            return;
-        }
-        if (isDashing)
-        {
-            return;
-        }
-
-        Move();
-    }
-
-    void Move()
-    {
-        float movement = Input.GetAxis("Horizontal");
-        rig.velocity = new Vector2(movement * speed, rig.velocity.y);
-
-        if (movement > 0f)
-        {
-            anim.SetBool("walk", true); // inicia a animação walk
-            if(FlipX)
-            {
-                Flip(); // manter o player na rotação 0 quando andando para direita
-            }
-             
-        }
-
-        else if (movement < 0f)
-        {
-            anim.SetBool("walk", true); // inicia a animação walk
-            if(!FlipX)
-            {
-                Flip(); // flipa o player em 180º quando andando para esquerda
-            }
-            
-        }
-
-        else if (movement == 0f)
-        {
-            anim.SetBool("walk", false); // desliga a animação walk
-        }
-    }
-
-    private void Flip()
-    {
-        FlipX = !FlipX;
-        float x = transform.localScale.x;
-        x *= -1;
-        transform.localScale = new Vector3(x,transform.localScale.y, transform.localScale.z);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.tag == "Platform")
-        {
-            this.transform.parent = collision.transform; // faz o player andar junto com a plataforma
-        }
-
-        if (collision.gameObject.layer == 9)
-        {
-            GameController.instance.showGameOver(); //mostra tela de game over
-            Destroy(gameObject);
-            return;
-
-        }
-
-        if(gameObject.tag == "Batata" && isDashing)
-        {
-            
-                if (collision.gameObject.tag == "hardWall")
-                {
-                    Destroy(collision.gameObject);
-                }
-            
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.tag == "Platform")
-        {
-            this.transform.parent = null; // player saiu da plataforma
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == 8)
-        {
-            isGrounded= true;
-            anim.SetBool("jump", false);
-        }
-
-        if (collision.gameObject.layer == 9)
-        {
+       // if (CurrentHealth == 0)
+       // {
             GameController.instance.showGameOver();
             Destroy(gameObject);
             return;
-        }
-
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == 8)
-        {
-            isGrounded= false;
-            anim.SetBool("jump", true);
-        }
+        //}
+        /*rig.AddForce(Vector2.left * 1000, ForceMode2D.Impulse);
+        CurrentHealth--;*/
     }
 }

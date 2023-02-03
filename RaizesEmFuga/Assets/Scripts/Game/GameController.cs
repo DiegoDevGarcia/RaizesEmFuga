@@ -16,11 +16,13 @@ public class GameController : MonoBehaviour
 
     public void showGameOver()
     {
+        Time.timeScale = 0f;
         gameOver.SetActive(true);
     }
 
     public void restartGame(string lvlName)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(lvlName);
     }
 }

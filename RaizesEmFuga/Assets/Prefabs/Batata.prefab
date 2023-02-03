@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 881803409}
   - component: {fileID: 881803404}
   m_Layer: 3
-  m_Name: Nabo
+  m_Name: Batata
   m_TagString: Batata
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
