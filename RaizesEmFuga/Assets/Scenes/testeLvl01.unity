@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 366148550}
+  m_Follow: {fileID: 4394360794951114375}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 3
@@ -1091,7 +1091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479247181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.63, y: -1.242, z: -10}
+  m_LocalPosition: {x: -8.03, y: -0.791, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1177,7 +1177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.63, y: -1.242, z: -10}
+  m_LocalPosition: {x: -8.03, y: -0.791, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1793,7 +1793,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 987118163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 76096654}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: restartGame
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: testeLvl
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &987118163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,7 +2344,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1248494318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 76096654}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: restartGame
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: testeLvl01
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1248494318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,7 +2717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394360795145083129, guid: 25020846dd56f6b479f0dff33713287a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.63
+      value: 15.29
       objectReference: {fileID: 0}
     - target: {fileID: 4394360795145083129, guid: 25020846dd56f6b479f0dff33713287a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3511,11 +3535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8889989931885073914, guid: 87efe46d9521cad46960d0f5f3d237af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06047392
+      value: 4.94
       objectReference: {fileID: 0}
     - target: {fileID: 8889989931885073914, guid: 87efe46d9521cad46960d0f5f3d237af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.32960105
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 8889989931885073914, guid: 87efe46d9521cad46960d0f5f3d237af, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3859,7 +3883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5124861043996758145, guid: 569ae91f7571a73409b16ee5abc72292, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.71
+      value: -8.03
       objectReference: {fileID: 0}
     - target: {fileID: 5124861043996758145, guid: 569ae91f7571a73409b16ee5abc72292, type: 3}
       propertyPath: m_LocalPosition.y

@@ -55,7 +55,7 @@ public class Platform : MonoBehaviour
 
         if(fallPlatform)
         {
-            if (collision.gameObject.tag == "Player") // invoca o metodo FallingPlatform e destroi de acordo com o tempo fallingTime
+            if (collision.gameObject.layer == 3 && collision.gameObject.GetComponent<Jogador>().isGrounded ) // invoca o metodo FallingPlatform e destroi de acordo com o tempo fallingTime
             {
                 Invoke("FallingPlatform", fallingTime);
             }

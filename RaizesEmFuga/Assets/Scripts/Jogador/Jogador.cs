@@ -7,7 +7,6 @@ public class Jogador : MonoBehaviour
 
     private Rigidbody2D rig;
     private SpriteRenderer Character;
-    public GameObject PlatformObj;
 
     //move
     private float movement;
@@ -22,6 +21,10 @@ public class Jogador : MonoBehaviour
     //characters
     [HideInInspector] public bool controlarPlayer = true;
     [HideInInspector] public Animator anim;
+
+    //Cenoura Eye
+    private bool isVisible = true;
+    public GameObject PlatformObj;
 
     //Batata Dash
     private bool canDash = true;
@@ -40,6 +43,8 @@ public class Jogador : MonoBehaviour
         Character = GetComponent<SpriteRenderer>();
 
         anim = GetComponent<Animator>();
+
+        PlatformObj.gameObject.SetActive(false);
     }
 
 
@@ -80,7 +85,7 @@ public class Jogador : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.X))
             {
-                PlatformObj.gameObject.SetActive(true);
+                seePlatform();
             }
             
         }
@@ -88,7 +93,7 @@ public class Jogador : MonoBehaviour
         if(gameObject.tag == "Batata")
         {
             PlatformObj.gameObject.SetActive(false); 
-            if(Input.GetKeyDown(KeyCode.E) && canDash)
+            if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
                 StartCoroutine(Dash());
             }
@@ -100,6 +105,12 @@ public class Jogador : MonoBehaviour
     {
         rig.velocity = Vector2.up * jumpSpeed;
 
+    }
+
+    private void seePlatform()
+    {
+        PlatformObj.gameObject.SetActive(isVisible);
+        isVisible = !isVisible;
     }
 
     IEnumerator Dash()
