@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4765394151653521274}
   - component: {fileID: 4765394151653521275}
   m_Layer: 0
-  m_Name: InimigoRandon
+  m_Name: Grilo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,10 +74,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2136080379
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.764151, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Color: {r: 0.1310299, g: 0.5566038, b: 0.034131378, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,15 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c069374e22594c4f9a363c14dbc7052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  routine: 0
-  crono: 0
-  anim: {fileID: 0}
-  direction: 0
-  speedWalk: 1
-  speedrun: 2
-  target: {fileID: 0}
-  sort_vision: 5
-  sort_attack: 0
-  attaking: 0
-  sort: {fileID: 0}
-  Hit: {fileID: 0}
+  pontosDePatrulha: []
+  velocidadeMovimento: 0
+  patrulhaDestino: 0
