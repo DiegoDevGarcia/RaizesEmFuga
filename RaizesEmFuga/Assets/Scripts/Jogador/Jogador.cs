@@ -65,6 +65,13 @@ public class Jogador : MonoBehaviour
 
         if (isGrounded)
         {
+            if(gameObject.tag == "Cenoura")
+            {
+                nJump = 1;
+            } else
+            {
+                nJump = 0;
+            }
 
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
@@ -83,7 +90,6 @@ public class Jogador : MonoBehaviour
         //Cenoura Skill
         if (gameObject.tag == "Cenoura")
         {
-            nJump = 1;
             if (Input.GetKeyDown(KeyCode.X))
             {
                 seePlatform();
@@ -94,7 +100,6 @@ public class Jogador : MonoBehaviour
         //Batata Skill
         if(gameObject.tag == "Batata")
         {
-            nJump = 0;
             PlatformObj.gameObject.SetActive(false); 
             if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
