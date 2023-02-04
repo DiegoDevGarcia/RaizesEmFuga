@@ -27,7 +27,7 @@ public class Inimigo : MonoBehaviour
             
             if(Vector2.Distance(transform.position, pontosDePatrulha[0].position) < 0.2f)
             {
-                inimigo.flipX = false;
+                inimigo.flipX =  true;
                 patrulhaDestino = 1;
             }
         }
@@ -38,7 +38,7 @@ public class Inimigo : MonoBehaviour
 
             if (Vector2.Distance(transform.position, pontosDePatrulha[1].position) < 0.2f)
             {
-                inimigo.flipX = true;
+                inimigo.flipX = false;
                 patrulhaDestino = 0;
             }
         }

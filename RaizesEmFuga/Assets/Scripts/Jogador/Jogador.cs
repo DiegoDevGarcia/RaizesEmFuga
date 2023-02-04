@@ -6,7 +6,7 @@ using UnityEngine;
 public class Jogador : MonoBehaviour
 {
 
-    private Rigidbody2D rig;
+    public Rigidbody2D rig;
     private SpriteRenderer Character;
 
     //move

@@ -60,12 +60,15 @@ public class PlayerManagerController : MonoBehaviour
             if (i == currentPlayer)
             {
                 Players[i].GetComponent<Jogador>().controlarPlayer = true;
-                
+                Players[i].GetComponent<Jogador>().rig.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+                Players[i].GetComponent<Jogador>().GetComponent<CapsuleCollider2D>().isTrigger = false;
             }
             else
             {
                 Players[i].GetComponent<Jogador>().controlarPlayer = false;
-                Players[i].GetComponent<Jogador>().anim.SetBool("walk", false);
+                Players[i].GetComponent<Jogador>().anim.SetBool("walk", false);               
+                Players[i].GetComponent<Jogador>().rig.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX;
+                Players[i].GetComponent<Jogador>().GetComponent<CapsuleCollider2D>().isTrigger = true;
             }
         }
     }
