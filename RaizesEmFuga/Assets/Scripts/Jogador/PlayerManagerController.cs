@@ -9,6 +9,7 @@ public class PlayerManagerController : MonoBehaviour
 
     [Header("Characters")]
     public GameObject[] Players = new GameObject[2];
+    public AudioSource SwitchCharacterAudio;
     [Range(1, 2)]
     public int startPlayer = 1;
 
@@ -32,6 +33,7 @@ public class PlayerManagerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C) && Time.timeScale != 0) 
         {
             TrocarPersonagem();
+            SwitchCharacterAudio.Play();
             
         }
     }

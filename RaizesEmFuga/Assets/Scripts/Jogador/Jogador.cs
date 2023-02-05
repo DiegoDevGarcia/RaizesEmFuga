@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,28 +5,32 @@ using UnityEngine;
 public class Jogador : MonoBehaviour
 {
 
-    public Rigidbody2D rig;
-    private SpriteRenderer Character;
-
     //move
     private float movement;
     public float speed = 5f;
     private bool FlipX;
+    public AudioSource walkAudio;
+    public AudioClip[] CharacterAudio;
 
     //jump
     private int nJump;
     public float jumpSpeed;
     public bool isGrounded;
+    public AudioSource jumpAudio;
+    public AudioSource doubleJumpAudio;
 
     //characters
     [HideInInspector] public bool controlarPlayer = true;
     [HideInInspector] public Animator anim;
+    public Rigidbody2D rig;
+    private SpriteRenderer Character;
 
     // private  int CurrentHealth = 3; *Possivel sistema de vida
 
     //Cenoura Eye
     private bool isVisible = true;
     public GameObject PlatformObj;
+    public AudioSource showPlatformAudio;
 
     //Batata Dash
     private bool canDash = true;
@@ -36,6 +39,7 @@ public class Jogador : MonoBehaviour
     private float dashingTime = 0.2f;
     private float dashingCoolDown = 0.5f;
     [SerializeField] TrailRenderer tr;
+    public AudioSource dashAudio;
 
 
 
@@ -76,6 +80,7 @@ public class Jogador : MonoBehaviour
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 Jump();
+                jumpAudio.Play();
             }
         }
         else
@@ -84,6 +89,7 @@ public class Jogador : MonoBehaviour
             {
                 nJump--;
                 Jump();
+                doubleJumpAudio.Play();
             }
         }
 
@@ -195,6 +201,7 @@ public class Jogador : MonoBehaviour
         if (movement > 0f)
         {
             anim.SetBool("walk", true); // inicia a animação walk
+            FootAudio();
             if (FlipX)
             {
                 Flip(); // manter o player na rotação 0 quando andando para direita
@@ -205,10 +212,12 @@ public class Jogador : MonoBehaviour
         else if (movement < 0f)
         {
             anim.SetBool("walk", true); // inicia a animação walk
+            FootAudio();
             if (!FlipX)
             {
                 Flip(); // flipa o player em 180º quando andando para esquerda
             }
+
 
         }
 
@@ -216,6 +225,14 @@ public class Jogador : MonoBehaviour
         {
             anim.SetBool("walk", false); // desliga a animação walk
         }
+    }
+
+    private void FootAudio()
+    {
+       // int randomAudio = Random.Range(0, CharacterAudio.Length);
+      //  CharacterAudio[randomAudio] = GetComponent<AudioClip>();
+        //audioSource.Play();
+        
     }
 
     private void Flip()
@@ -230,12 +247,14 @@ public class Jogador : MonoBehaviour
     void Jump()
     {
         rig.velocity = Vector2.up * jumpSpeed;
+        jumpAudio.Play();
     }
 
     //Cenoura Skill
     private void seePlatform()
     {
         PlatformObj.gameObject.SetActive(isVisible);
+        showPlatformAudio.Play();
         isVisible = !isVisible;
     }
 
@@ -244,6 +263,7 @@ public class Jogador : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        dashAudio.Play();
         anim.SetBool("dash", true);
         float originalGravity = rig.gravityScale;
         rig.gravityScale = 0f;
